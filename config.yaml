@@ -1,0 +1,15 @@
+# fetch config
+site_key: HK-Main
+locale: en-HK
+keywords: Operation # (multi-select, example: Operation,Marketing)
+work_type: 242 # (multi-select, example: 242,243) Full time: 242, Part time: 243, Contract/Temp: 244, Casual/Vacation: 245
+page_size: 32
+max_page: -1 # crawl all pages when max_page is -1
+
+# crawler config
+concurrent_limit: 10
+output_dir: output/
+log_dir: logs/
+log_level: INFO
+enable_console: true
+skip_existing: true
