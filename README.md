@@ -2,7 +2,7 @@
 
 This is an asynchronous Python crawler designed to extract job listing data from the [JobsDB Hong Kong](https://hk.jobsdb.com) platform via its public API.
 
-📖 中文说明请见：[README.zh.md](README_zh.md)
+📖 中文说明请见：[README_zh.md](README_zh.md)
 
 ## 🚀 Features
 
