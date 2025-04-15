@@ -51,7 +51,7 @@ async def crawl_all():
             f"totalCount: {total_count}, totalPages: {total_pages}, pages to crawl = {page_limit}"
         )
     except Exception as e:
-        logging.error(f"❌ Failed to fetch first page: {e}")
+        logging.error(f"❌ Failed to fetch first page: {e}", exc_info=True)
         return
 
     async def crawl_one(params):
@@ -69,7 +69,7 @@ async def crawl_all():
                     f"Page {params['page']} fetched, {len(new_jobs)} new items."
                 )
             except Exception as e:
-                logging.error(f"❌ Error on page: {params['page']}: {e}")
+                logging.error(f"❌ Error on page: {params['page']}: {e}", exc_info=True)
 
     tasks = [
         crawl_one(
