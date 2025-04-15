@@ -7,8 +7,8 @@ from tqdm.asyncio import tqdm_asyncio
 from logger import init_logger
 from fetcher import fetch_page
 from parser import parse_items
-from saver import save_to_csv
-from utils import timing
+from file_utils import save_to_csv, load_from_csv
+from func_utils import timing
 
 
 # load config
@@ -23,8 +23,11 @@ init_logger(config)
 async def crawl_all():
     results = []
     sem = asyncio.Semaphore(config["concurrent_limit"])
+    filename = f"{config['site_key']}_{config['keywords']}_{config['work_type']}.csv"
 
-    # TODO: read existing jobs from csv
+    # read existing job_id from csv
+    existing_job_id = {job.get("job_id") for job in load_from_csv(config, filename)}
+    logging.info(f"Existing jobs: {len(existing_job_id)}")
 
     first_page_param = {
         "siteKey": config["site_key"],
@@ -56,8 +59,15 @@ async def crawl_all():
             try:
                 res = await fetch_page(params)
                 jobs = parse_items(res["data"])
-                results.extend(jobs)
-                logging.debug(f"Page {params['page']} fetched, {len(jobs)} new items.")
+
+                # remove existing jobs
+                new_jobs = [
+                    job for job in jobs if job.get("job_id") not in existing_job_id
+                ]
+                results.extend(new_jobs)
+                logging.debug(
+                    f"Page {params['page']} fetched, {len(new_jobs)} new items."
+                )
             except Exception as e:
                 logging.error(f"❌ Error on page: {params['page']}: {e}")
 
@@ -75,7 +85,9 @@ async def crawl_all():
         for p in range(1, page_limit + 1)
     ]
     await tqdm_asyncio.gather(*tasks)
-    save_to_csv(results, config)
+
+    if results:
+        save_to_csv(results, config, filename)
 
 
 if __name__ == "__main__":
