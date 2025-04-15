@@ -56,8 +56,7 @@ async def crawl_all():
                 res = await fetch_page(params)
                 jobs = parse_items(res["data"])
                 results.extend(jobs)
-                # TODO: logging fetch info without interrupting tqdm process bar
-                # logging.info(f"Page {params['page']} fetched, {len(jobs)} new items.")
+                logging.debug(f"Page {params['page']} fetched, {len(jobs)} new items.")
             except Exception as e:
                 logging.error(f"❌ Error on page: {params['page']}: {e}")
 

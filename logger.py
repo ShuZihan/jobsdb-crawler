@@ -26,14 +26,14 @@ def init_logger(config) -> logging.Logger:
 
     # init file handler
     file_handler = logging.FileHandler(log_file)
-    file_handler.setLevel(getattr(logging, config["log_level"].upper()))
+    file_handler.setLevel(getattr(logging, config["file_log_level"].upper()))
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
     # init console Handler
     if config["enable_console"]:
         console_handler = logging.StreamHandler()
-        console_handler.setLevel(getattr(logging, config["log_level"].upper()))
+        console_handler.setLevel(getattr(logging, config["console_log_level"].upper()))
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
 

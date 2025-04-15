@@ -1,4 +1,6 @@
 import aiohttp
+import logging
+
 
 BASE_URL = "https://hk.jobsdb.com/api/jobsearch/v5/search"
 
@@ -11,6 +13,5 @@ headers = {
 async def fetch_page(params: dict) -> dict:
     async with aiohttp.ClientSession(headers=headers) as session:
         async with session.get(BASE_URL, params=params, timeout=10) as resp:
-            # TODO: logging full request url without interrupting tqdm process bar
-            # print(f"🔍 Request URL: {resp.url}")
+            logging.debug(f"Request URL: {resp.url}")
             return await resp.json()
