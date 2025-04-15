@@ -8,6 +8,7 @@ from logger import init_logger
 from fetcher import fetch_page
 from parser import parse_items
 from saver import save_to_csv
+from utils import timing
 
 
 # load config
@@ -18,7 +19,7 @@ with open("config.yaml", "r") as f:
 init_logger(config)
 
 
-# TODO: record mission elapsed time
+@timing
 async def crawl_all():
     results = []
     sem = asyncio.Semaphore(config["concurrent_limit"])
