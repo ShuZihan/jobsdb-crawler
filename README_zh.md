@@ -26,17 +26,20 @@ python main.py
 ## ⚙️ 配置说明（config.yaml）
 
 ```yaml
+# 请求配置
 site_key: HK-Main
 locale: en-HK
 keywords: Operation # 可多选，例如：Operation,Marketing
-work_type: 242 # 可多选，例如：242,243
+work_type: 242 # 可多选，例如：242,243; Full time: 242, Part time: 243, Contract/Temp: 244, Casual/Vacation: 245
 page_size: 32
 max_page: -1 # -1 表示抓取所有页面
 
+# 爬虫配置
 concurrent_limit: 10
 output_dir: output/
 log_dir: logs/
-log_level: INFO
+file_log_level: INFO
+console_log_level: INFO
 enable_console: true
 skip_existing: true
 ```

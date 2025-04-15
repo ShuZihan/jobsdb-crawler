@@ -26,17 +26,20 @@ python main.py
 ## ⚙️ Configuration (`config.yaml`)
 
 ```yaml
+# fetch config
 site_key: HK-Main
 locale: en-HK
-keywords: Operation # Multiple selections allowed, e.g., Operation,Marketing
-work_type: 242 # Multiple selections allowed, e.g., 242,243
+keywords: Operation # multi-select allowed, e.g., Operation,Marketing
+work_type: 242 # multi-select allowed, e.g., 242,243; Full time: 242, Part time: 243, Contract/Temp: 244, Casual/Vacation: 245
 page_size: 32
-max_page: -1 # -1 means crawl all pages
+max_page: # -1 means crawl all pages
 
+# crawler config
 concurrent_limit: 10
 output_dir: output/
 log_dir: logs/
-log_level: INFO
+file_log_level: INFO
+console_log_level: INFO
 enable_console: true
 skip_existing: true
 ```
